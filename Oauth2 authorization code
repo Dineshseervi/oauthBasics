@@ -1,1 +1,18 @@
-start
+OAuth 2.0 Authorization Code Grant Type
+Used to get an access token after a user authorizes an app after login success fully using okta where we had configured user , client id and secret and redirect uri.
+
+1 >user will be rediredect to login page ( okta ) with request containing  -response_type=code ,-redirect url ,- clientid, -scope ,-state to be passed to authorization server
+
+2 > on succesful login request will be redirected to redirect url with state and code in param.
+    This code is authorization code genrated by authorization server relatively sort lived
+    
+3> exchange the authorization code for an authtoken from backchangel in application .By making a POST call to token endpoint.
+    contains follwing.
+    grant_type= authorization_code
+    code=
+    redirect-uri=same used in step1
+    client id
+    client secret=to assure that request is made from application and not from potentisl attacker if then able to get code from response.
+    
+ 4>The token endpoint will verify all the parameters in the request, ensuring the code hasn’t expired 
+     and that the client ID and secret match. If everything checks out, it will generate an access token and return it in the response!
